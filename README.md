@@ -27,7 +27,7 @@ For instance, compare the curried version . . .
 ```C#
 Db
   .Jics
-  .Proc("CUS_spGetFwkUser")
+  .Proc("spGetFwkUser")
   .Param("@uid", userid)
   .Row();
 ```
@@ -41,7 +41,7 @@ using (var conn = new SqlConnection(<... conn str ...>))
     {
 
       proc.CommandType = CommandType.StoredProcedure;
-      proc.CommandText = "CUS_spGetFwkUser";
+      proc.CommandText = "spGetFwkUser";
       proc.Parameters.Add("@uid", uid);
 
       conn.Open();
