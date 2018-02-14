@@ -52,7 +52,7 @@ using (var conn = new SqlConnection(<... conn str ...>))
           return null;
       else
       {
-          var users = new List<FwkUsers>();
+          var user = new FwkUsers();
           while (rdr.Read())
           {
               // parse 
@@ -61,7 +61,7 @@ using (var conn = new SqlConnection(<... conn str ...>))
               // data
               // . . .
           }
-          return users;
+          return user;
       }
 
     }
