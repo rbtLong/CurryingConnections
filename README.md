@@ -1,6 +1,6 @@
 # Currying Connections
 
-These are some of the techniques used to connect our various databases from work. This approach is taken
+These are some of the techniques used to connect our various databases at work. This approach is taken
 because there was a notorious connection leak issue that brought down our 5-college database servers during
 registration when there is heavy traffic on the portal. Additionally, it simplifies and eliminates
 thousands of lines of code in our code base.
