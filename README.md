@@ -69,7 +69,7 @@ using (var conn = new SqlConnection(<... conn str ...>))
 ```
 
 We use .Rows() which returns a Dictionary<string, object> that represents a row (where the key is the column's 
-name--always of type string), the value of that column and is whatever object it is). In many cases, this allows 
+name--always of type string), the value of that column and is whatever object it is. In many cases, this allows 
 us to forward the data model straight to the front-end as json.
 
 In this example, the non-curried version was fairly clean and the connection is guaranteed to close. However, when
