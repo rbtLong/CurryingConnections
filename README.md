@@ -14,7 +14,7 @@ the first column of the first row of the query; if here are no rows, a null is e
 this is executed for updates or deletes. **Rows/Row**, here we expect rows to be returned, the former approach was to use the data adapter from ADO.Net to fill the
 the dataset/data table and acquire data from it.
 
-Here is a typical flow our database connection operations.
+Here is a typical flow of how a database connection runs.
 1. **Scalar**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Execute Scalar -> Acquire First Column of First Row or Null
 2. **Non-Query**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Execute Non-query (updates, deletes, ect) -> Rows Affected
 3. **Rows**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Use ADO API's to fill data rows -> Extract the data
@@ -74,6 +74,6 @@ us to forward the data model straight to the front-end as json.
 
 In this example, the non-curried version was fairly clean and the connection is guaranteed to close. However, when
 dealing with very bad code where the connection is not closed, the connection is not properly wrapped around a
-using clause, and the logic continues for 90 more lines, the logic becomes difficult to keep track of. Unfortunately,
+using clause, and the logic continues for 90 or more lines, the logic becomes difficult to keep track of. Unfortunately,
 our codebase had many instances of this behavior. We used Currying to simplify the code and guaranteed that the
 database connections were managed properly.
