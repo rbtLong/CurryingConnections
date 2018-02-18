@@ -154,7 +154,7 @@ public static FwkUserModel[] SearchPortalUser(string q)
                 }
                 users.Add(u);
             }
-            return users;
+            return users.ToArray();
         }
 
         }
