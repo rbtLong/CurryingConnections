@@ -132,32 +132,32 @@ public static FwkUserModel[] SearchPortalUser(string q)
         using(var proc = conn.CreateCommand())
         {
 
-        proc.CommandType = CommandType.Text;
-        proc.CommandText = cmd;
-        proc.Parameters.Add("@fullname", uid);
-        proc.Parameters.Add("@cxid", uid);
+            proc.CommandType = CommandType.Text;
+            proc.CommandText = cmd;
+            proc.Parameters.Add("@fullname", uid);
+            proc.Parameters.Add("@cxid", uid);
 
-        conn.Open();
+            conn.Open();
 
-        var rdr = proc.ExecuteReader();
+            var rdr = proc.ExecuteReader();
 
-        if (!rdr.HasRows)
-            return null;
-        else
-        {
-            var users = new List<FwkUserModel>();
-            while (rdr.Read())
+            if (!rdr.HasRows)
+                return null;
+            else
             {
-                var u = new FwkUserModel() {
-                    HostId = rdr["HostId"],
-                    FirstName = rdr["FirstName"],
-                    LastName = rdr["LastName"],
-                    Email = rdr["Email"]
+                var users = new List<FwkUserModel>();
+                while (rdr.Read())
+                {
+                    var u = new FwkUserModel() {
+                        HostId = rdr["HostId"],
+                        FirstName = rdr["FirstName"],
+                        LastName = rdr["LastName"],
+                        Email = rdr["Email"]
+                    }
+                    users.Add(u);
                 }
-                users.Add(u);
+                return users.ToArray();
             }
-            return users.ToArray();
-        }
 
         }
     }
