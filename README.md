@@ -55,7 +55,7 @@ using (var conn = new SqlConnection(<... conn for jics db ...>))
           return null;
       else
       {
-          var user = new FwkUsers();
+          var user = new FwkUserModel();
           while (rdr.Read())
           {
               // parse 
@@ -92,3 +92,72 @@ The following is how this database currying will flow.
 3. Input the SQL query as a string, choose between **Cmd** (a generic SQL query) or **Proc** (a SQL stored procedure).
 4. Supply the appropriate parameter(s) to the prepared statement from step 3.
 5. Execute the expression and get data back. **Scalar** returns first column of first row as an object. **Ds** returns a DataSet, an ADO.Net object. **Non-Query** this will return the rows affected by the call. **Row** this will return a Dictionary<string, object> (like Json) where the key is the column name and the value is the object; returns null when no rows are available. **Rows** similar to row, except it will return a array of Dictionary<string, object> object.
+
+## More Examples
+
+### SearchPortalUser
+This function will search the database for a portal user based on a query. It is a reserved function used
+specifically for a small group of administrators to look up users.
+
+Curried version . . .
+```C#
+public static Dictionary<string, object>[] SearchPortalUser(string q)
+{
+    const string cmd = 
+        @"select * from 
+        (select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user) _users
+        where _users.fullname like '%' + @fullname + '%' or _users.cxid like '%' + @cxid + '%'; ";
+
+    return Db.Jics
+        .Cmd(cmd)
+        .Param("@fullname", q)
+        .Param("@cxid", q)
+        .Rows();
+}
+```
+
+Non-curried version . . .
+```C#
+public static FwkUserModel[] SearchPortalUser(string q)
+{
+    const string cmd = 
+        @"select * from 
+        (select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user) _users
+        where _users.fullname like '%' + @fullname + '%' or _users.cxid like '%' + @cxid + '%'; ";
+
+    using (var conn = new SqlConnection(<... conn for jics db ...>))
+    {
+        using(var proc = conn.CreateCommand())
+        {
+
+        proc.CommandType = CommandType.Text;
+        proc.CommandText = cmd;
+        proc.Parameters.Add("@fullname", uid);
+        proc.Parameters.Add("@cxid", uid);
+
+        conn.Open();
+
+        var rdr = proc.ExecuteReader();
+
+        if (!rdr.HasRows)
+            return null;
+        else
+        {
+            var users = new List<FwkUserModel>();
+            while (rdr.Read())
+            {
+                var u = new FwkUserModel() {
+                    HostId = rdr["HostId"],
+                    FirstName = rdr["FirstName"],
+                    LastName = rdr["LastName"],
+                    Email = rdr["Email"]
+                }
+                users.Add(u);
+            }
+            return users;
+        }
+
+        }
+    }
+}
+```
