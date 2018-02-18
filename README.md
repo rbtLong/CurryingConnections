@@ -2,7 +2,7 @@
 
 These are some of the techniques used to connect our various databases at work. This approach is taken
 because there was a notorious connection leak issue that brought down our 5-college database servers during
-registration when there is moderate traffic on the portal. Additionally, it simplifies and eliminates
+registration when there is moderate traffic on the portal. Additionally, it simplifies usage and eliminates
 thousands of lines of code in our code base.
 
 ## Why Curry?
@@ -83,7 +83,7 @@ database connections were managed properly.
 
 ## Flow
 
-The following is how this database currying will flow.
+The following diagram describes how a Currying Database can be used.
 
 ![Currying Database Flow Diagram](https://docs.google.com/drawings/d/e/2PACX-1vQLsdyK4jbbhsgNYWdqPP8GKf2FxrhSSGcunOUL0pTOPry1RLk1EEk-QUPZ9fRUEMFtJWZ5gDLzOBsN/pub?w=1280&h=1034 "CurryingDatabaseFlowDiagram" )
 
