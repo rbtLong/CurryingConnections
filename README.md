@@ -17,8 +17,9 @@ the dataset/data table and acquire data from it.
 Here is a typical flow of how a database connection runs.
 1. **Scalar**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Execute Scalar -> Acquire First Column of First Row or Null
 2. **Non-Query**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Execute Non-query (updates, deletes, ect) -> Rows Affected
-3. **Rows**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Use ADO API's to fill data rows -> Extract the data
-4. **Row**: Same as *Rows*, but we only use one.
+3. **Ds**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Use ADO API's to fill data rows -> Return DataSet
+4. **Ds**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Iterate through Reader -> Return Dictionary<string, object> 
+5. **Row**: Same as *Rows*, but we only use one.
 
 With currying, there is a simple way to handle these operations and guarantee no connection leaks. 
 
@@ -84,11 +85,10 @@ database connections were managed properly.
 
 The following is how this database currying will flow.
 
-
 ![Currying Database Flow Diagram](https://docs.google.com/drawings/d/e/2PACX-1vQLsdyK4jbbhsgNYWdqPP8GKf2FxrhSSGcunOUL0pTOPry1RLk1EEk-QUPZ9fRUEMFtJWZ5gDLzOBsN/pub?w=1280&h=1034 "CurryingDatabaseFlowDiagram" )
 
 1. The expression starts off by calling **Db** which has a statically defined list of database connections.
-2. Choose between the list of statically defined list of databases: **Jics** (our main db), **Powerfaids** (finnancial aid), **Forms** (our generic form solution database), **Irb** (inter-college science form information), **Logs** (trace and log information)
+2. Choose between the list of statically defined databases: **Jics** (our main db), **Powerfaids** (finnancial aid), **Forms** (our generic form solution database), **Irb** (inter-college science form information), **Logs** (trace and log information)
 3. Input the SQL query as a string, choose between **Cmd** (a generic SQL query) or **Proc** (a SQL stored procedure).
 4. Supply the appropriate parameter(s) to the prepared statement from step 3.
 5. Execute the expression and get data back. **Scalar** returns first column of first row as an object. **Ds** returns a DataSet, an ADO.Net object. **Non-Query** this will return the rows affected by the call. **Row** this will return a Dictionary<string, object> (like Json) where the key is the column name and the value is the object; returns null when no rows are available. **Rows** similar to row, except it will return a array of Dictionary<string, object> object.
