@@ -20,9 +20,11 @@ Here is a typical flow of how a database connection runs.
 3. **Rows**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Use ADO API's to fill data rows -> Extract the data
 4. **Row**: Same as *Rows*, but we only use one.
 
-With currying, there is a simple way to handle these operations and guarantee no connection leaks.
+With currying, there is a simple way to handle these operations and guarantee no connection leaks. 
 
-For instance, compare the curried version . . .
+Take, for instance, an example of a sql stored procedure execution with a parameter input of uid and getting back the row for that user. 
+
+Here is the the curried version . . .
 
 ```C#
 Db
