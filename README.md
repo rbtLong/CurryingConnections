@@ -10,7 +10,7 @@ thousands of lines of code in our code base.
 Currying allows us to combine together expressions and execute them at one time.
 
 In our code base, there appears to be 4 common patterns when doing database-related operations. **Scalar**, which executes a command and returns
-the first column of the first row of the query; if here are no rows, a null is expected. **Non-query**, which returns the rows affected, typically,
+the first column of the first row of the query. **Non-query**, which returns the rows affected, typically,
 this is executed for updates or deletes. **Rows/Row**, here we expect rows to be returned, the former approach was to use the data adapter from ADO.Net to fill the
 the dataset/data table and acquire data from it.
 
