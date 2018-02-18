@@ -37,7 +37,7 @@ Db
 to the non-curried version . . .
 
 ```C#
-using (var conn = new SqlConnection(<... conn str ...>))
+using (var conn = new SqlConnection(<... conn for jics db ...>))
 {
     using(var proc = conn.CreateCommand())
     {
