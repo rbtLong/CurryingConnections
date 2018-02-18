@@ -95,6 +95,8 @@ The following is how this database currying will flow.
 
 ## More Examples
 
+Here are some more uses of the database operations we use. Compare the curried version to the non-curried version.
+
 ### SearchPortalUser
 This function will search the database for a portal user based on a query. It is a reserved function used
 specifically for a small group of administrators to look up users.
