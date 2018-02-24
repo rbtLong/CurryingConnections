@@ -103,37 +103,38 @@ specifically for a small group of administrators to look up users.
 
 Curried version . . .
 ```C#
+
+public const string qSearchPortalUser = 
+    @"select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user 
+      where FirstName like '%' + @name + '%' or LastName like '%' + @name + '%' or _users.cxid like '%' + @cxid + '%'; ";
+
 public static Dictionary<string, object>[] SearchPortalUser(string q)
 {
-    const string cmd = 
-        @"select * from 
-        (select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user) _users
-        where _users.fullname like '%' + @fullname + '%' or _users.cxid like '%' + @cxid + '%'; ";
-
     return Db.Jics
-        .Cmd(cmd)
+        .Cmd(qSearchPortalUser)
         .Param("@fullname", q)
         .Param("@cxid", q)
         .Rows();
 }
+
 ```
 
 Non-curried version . . .
 ```C#
+
+public const string qSearchPortalUser = 
+    @"select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user 
+    where FirstName like '%' + @name + '%' or LastName like '%' + @name + '%' or _users.cxid like '%' + @cxid + '%'; ";
+
 public static FwkUserModel[] SearchPortalUser(string q)
 {
-    const string cmd = 
-        @"select * from 
-        (select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user) _users
-        where _users.fullname like '%' + @fullname + '%' or _users.cxid like '%' + @cxid + '%'; ";
-
     using (var conn = new SqlConnection(<... conn for jics db ...>))
     {
         using(var proc = conn.CreateCommand())
         {
 
             proc.CommandType = CommandType.Text;
-            proc.CommandText = cmd;
+            proc.CommandText = qSearchPortalUser;
             proc.Parameters.Add("@fullname", uid);
             proc.Parameters.Add("@cxid", uid);
 
@@ -162,4 +163,5 @@ public static FwkUserModel[] SearchPortalUser(string q)
         }
     }
 }
+
 ```
