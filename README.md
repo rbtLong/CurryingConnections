@@ -112,7 +112,7 @@ public static Dictionary<string, object>[] SearchPortalUser(string q)
 {
     return Db.Jics
         .Cmd(qSearchPortalUser)
-        .Param("@fullname", q)
+        .Param("@name", q)
         .Param("@cxid", q)
         .Rows();
 }
@@ -135,7 +135,7 @@ public static FwkUserModel[] SearchPortalUser(string q)
 
             proc.CommandType = CommandType.Text;
             proc.CommandText = qSearchPortalUser;
-            proc.Parameters.Add("@fullname", uid);
+            proc.Parameters.Add("@name", uid);
             proc.Parameters.Add("@cxid", uid);
 
             conn.Open();
