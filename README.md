@@ -106,7 +106,7 @@ Curried version . . .
 
 public const string qSearchPortalUser = 
     @"select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user 
-      where FirstName like '%' + @name + '%' or LastName like '%' + @name + '%' or _users.cxid like '%' + @cxid + '%'; ";
+      where FirstName like '%' + @name + '%' or LastName like '%' + @name + '%' or HostID like '%' + @cxid + '%'; ";
 
 public static Dictionary<string, object>[] SearchPortalUser(string q)
 {
@@ -124,7 +124,7 @@ Non-curried version . . .
 
 public const string qSearchPortalUser = 
     @"select (FirstName + ' ' + LastName) fullname, substring(hostid, 4, 20) cxid, email from fwk_user 
-    where FirstName like '%' + @name + '%' or LastName like '%' + @name + '%' or _users.cxid like '%' + @cxid + '%'; ";
+    where FirstName like '%' + @name + '%' or LastName like '%' + @name + '%' or HostID like '%' + @cxid + '%'; ";
 
 public static FwkUserModel[] SearchPortalUser(string q)
 {
