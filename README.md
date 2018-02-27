@@ -18,7 +18,7 @@ Here is a typical flow of how a database connection runs.
 1. **Scalar**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Execute Scalar -> Acquire First Column of First Row or Null
 2. **Non-Query**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Execute Non-query (updates, deletes, ect) -> Rows Affected
 3. **Ds**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Use ADO API's to fill data rows -> Return DataSet
-4. **Ds**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Iterate through Reader -> Return Dictionary<string, object> 
+4. **Rows**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Iterate through Reader -> Return Dictionary<string, object> 
 5. **Row**: Same as *Rows*, but we only use one.
 
 With currying, there is a simple way to handle these operations and guarantee no connection leaks. 
@@ -135,8 +135,8 @@ public static FwkUserModel[] SearchPortalUser(string q)
 
             proc.CommandType = CommandType.Text;
             proc.CommandText = qSearchPortalUser;
-            proc.Parameters.Add("@name", uid);
-            proc.Parameters.Add("@cxid", uid);
+            proc.Parameters.Add("@name", q);
+            proc.Parameters.Add("@cxid", q);
 
             conn.Open();
 
