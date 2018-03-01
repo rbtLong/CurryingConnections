@@ -71,7 +71,7 @@ using (var conn = new SqlConnection(<... conn for jics db ...>))
 }
 ```
 
-We use .Rows() which returns a Dictionary<string, object> that represents a row (where the key is the column's 
+We use .Row() which returns a Dictionary<string, object> that represents a row (where the key is the column's 
 name--always of type string, the value of that column and is whatever object it is). In many cases, this allows 
 us to forward the data model straight to the front-end as json.
 
