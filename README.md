@@ -1,4 +1,4 @@
-# Currying Connections
+# Method-Chaining Connections
 
 These are some of the techniques used to connect our various databases at work. This approach is taken
 because there was a notorious connection leak issue that brought down our 5-college database servers during
@@ -7,7 +7,7 @@ thousands of lines of code in our code base.
 
 ## Why Curry?
 
-Currying allows us to combine together expressions and execute them at one time.
+Method-Chaining allows us to combine together expressions and execute them at one time.
 
 In our code base, there appears to be 4 common patterns when doing database-related operations. **Scalar**, which executes a command and returns
 the first column of the first row of the query. **Non-query**, which returns the rows affected, typically,
@@ -21,7 +21,7 @@ Here is a typical flow of how a database connection runs.
 4. **Rows**: Connect to DB -> Execute SQL Cmd -> Supply Needed Parameters -> Iterate through Reader -> Return Dictionary<string, object> 
 5. **Row**: Same as *Rows*, but we only use one.
 
-With currying, there is a simple way to handle these operations and guarantee no connection leaks. 
+With Method-Chaining, there is a simple way to handle these operations and guarantee no connection leaks. 
 
 Take, for instance, an example of a sql stored procedure execution with a parameter input of uid and getting back the row for that user. 
 
@@ -78,14 +78,14 @@ us to forward the data model straight to the front-end as json.
 In this example, the non-curried version was fairly clean and the connection is guaranteed to close. However, when
 dealing with very bad code where the connection is not closed, the connection is not properly wrapped around a
 using clause, and the logic continues for 90 or more lines, the logic becomes difficult to keep track of. Unfortunately,
-our codebase had many instances of this behavior. We used Currying to simplify the code and guaranteed that the
+our codebase had many instances of this behavior. We used Method-Chaining to simplify the code and guaranteed that the
 database connections were managed properly.
 
 ## Flow
 
-The following diagram describes how a Currying Database can be used.
+The following diagram describes how a Method-Chaining Database can be used.
 
-![Currying Database Flow Diagram](https://docs.google.com/drawings/d/e/2PACX-1vQLsdyK4jbbhsgNYWdqPP8GKf2FxrhSSGcunOUL0pTOPry1RLk1EEk-QUPZ9fRUEMFtJWZ5gDLzOBsN/pub?w=1280&h=1034 "CurryingDatabaseFlowDiagram" )
+![Method-Chaining Database Flow Diagram](https://docs.google.com/drawings/d/e/2PACX-1vQLsdyK4jbbhsgNYWdqPP8GKf2FxrhSSGcunOUL0pTOPry1RLk1EEk-QUPZ9fRUEMFtJWZ5gDLzOBsN/pub?w=1280&h=1034 "Method-ChainingDatabaseFlowDiagram" )
 
 1. The expression starts off by calling **Db** which has a statically defined list of database connections.
 2. Choose between the list of statically defined databases: **Jics** (our main db), **Powerfaids** (finnancial aid), **Forms** (our generic form solution database), **Irb** (inter-college science form information), **Logs** (trace and log information)
