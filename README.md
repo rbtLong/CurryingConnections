@@ -5,7 +5,7 @@ because there was a notorious connection leak issue that brought down our 5-coll
 registration when there is moderate traffic on the portal. Additionally, it simplifies usage and eliminates
 thousands of lines of code in our code base.
 
-## Why Curry?
+## Why Method-Chaining?
 
 Method-Chaining allows us to combine together expressions and execute them at one time.
 
