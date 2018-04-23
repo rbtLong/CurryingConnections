@@ -6,13 +6,13 @@ using System.Data.SqlClient;
 namespace PZHelpers.MSQ
 {
     /// <summary>
-    /// This class is meant to store Connection Currying expression. It stores the string
+    /// This class is meant to store Connection Method-Chaining expression. It stores the string
     /// SQL command, the SQL commad type, the parameters, and the database connection string.
     /// Function-wise, it also contains how the expression can execute, usually the last point
-    /// in Connection Currying. Row and Rows make use of Dictionary<string, object> (like JSON)
+    /// in Connection Method-Chaining. Row and Rows make use of Dictionary<string, object> (like JSON)
     /// because in many instances, we can simply pass this straight to front-end as a JSON object.
     /// 
-    /// Here are the ways a Currying Expression can terminate:
+    /// Here are the ways a Method-Chaining Expression can terminate:
     ///  Scalar - Executes the query with parameters as prepared statements and returns the first column of the first row as an object.
     ///  NonQuery - Executes the query with parameters as prepared statement and returns an integer representing rows affected by the execution
     ///             this typically occurs on update, delete, and insert SQL statements. 

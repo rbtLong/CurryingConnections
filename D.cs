@@ -13,7 +13,7 @@ namespace PZHelpers
     /// <summary>
     /// This class helps with creating and changing Dictionary<string, object> related operations.
     /// The goal of this class is to help objects be manipulated in a more JSON-like way. For
-    /// Currying-related work please see MSQ.
+    /// Method-Chaining-related work please see MSQ.
     /// </summary>
     public static class D
     {

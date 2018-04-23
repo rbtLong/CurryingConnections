@@ -6,7 +6,7 @@ namespace PZHelpers.MSQ
 {
     /// <summary>
     /// This class is a statically-defined class that has set of extension methods that
-    /// `hinge` off of the Db class. It is usually the second point when Currying Connections.
+    /// `hinge` off of the Db class. It is usually the second point when Method-Chaining Connections.
     /// 
     /// These functions return a QBuilder which will store important query information such
     /// as the SQL string command or string stored procedure, and the parameters. These functions
@@ -17,7 +17,7 @@ namespace PZHelpers.MSQ
     ///
     /// Connect and Cmd are more generic ways to connect to the database while still guaranteeing
     /// no connection leaks. These functions make use of callback functions and is used by the
-    /// Currying expressions to connect to the database.
+    /// Method-Chaining expressions to connect to the database.
     /// 
     /// </summary>
     public static class Q

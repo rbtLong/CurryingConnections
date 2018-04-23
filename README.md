@@ -25,7 +25,7 @@ With Method-Chaining, there is a simple way to handle these operations and guara
 
 Take, for instance, an example of a sql stored procedure execution with a parameter input of uid and getting back the row for that user. 
 
-Here is the the curried version . . .
+Here is the the simplified version . . .
 
 ```C#
 Db
@@ -35,7 +35,7 @@ Db
   .Row();
 ```
 
-to the non-curried version . . .
+to the non-simplified version . . .
 
 ```C#
 using (var conn = new SqlConnection(<... conn for jics db ...>))
@@ -75,7 +75,7 @@ We use .Row() which returns a Dictionary<string, object> that represents a row (
 name--always of type string, the value of that column and is whatever object it is). In many cases, this allows 
 us to forward the data model straight to the front-end as json.
 
-In this example, the non-curried version was fairly clean and the connection is guaranteed to close. However, when
+In this example, the non-simplified version was fairly clean and the connection is guaranteed to close. However, when
 dealing with very bad code where the connection is not closed, the connection is not properly wrapped around a
 using clause, and the logic continues for 90 or more lines, the logic becomes difficult to keep track of. Unfortunately,
 our codebase had many instances of this behavior. We used Method-Chaining to simplify the code and guaranteed that the
@@ -95,13 +95,13 @@ The following diagram describes how a Method-Chaining Database can be used.
 
 ## More Examples
 
-Here are some more uses of the database operations we use. Compare the curried version to the non-curried version.
+Here are some more uses of the database operations we use. Compare the simplified version to the non-simplified version.
 
 ### SearchPortalUser
 This function will search the database for a portal user based on a query. It is a reserved function used
 specifically for a small group of administrators to look up users.
 
-Curried version . . .
+simplified version . . .
 ```C#
 
 public const string qSearchPortalUser = 
@@ -119,7 +119,7 @@ public static Dictionary<string, object>[] SearchPortalUser(string q)
 
 ```
 
-Non-curried version . . .
+Non-simplified version . . .
 ```C#
 
 public const string qSearchPortalUser = 

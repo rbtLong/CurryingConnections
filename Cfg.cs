@@ -8,11 +8,11 @@ using System.Runtime.CompilerServices;
 namespace PZHelpers
 {
     /// <summary>
-    /// NOTICE: Please look at files in MSQ for Connection Currying related stuff.
+    /// NOTICE: Please look at files in MSQ for Connection Method-Chaining related stuff.
     ///
     /// This class is used to connect to the database to grab the connection strings to
     /// connect to other databases (including itself). This was how Jenzabar (our vendor)
-    /// company built the framework. This class doesn't deal with the Currying aspects
+    /// company built the framework. This class doesn't deal with the Method-Chaining aspects
     /// of connection strings. It primarily serves as a substitute to the default framework's
     /// method of connecting to the database.
     ///
